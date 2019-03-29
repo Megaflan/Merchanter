@@ -12,6 +12,7 @@ namespace Merchanter
         static void Main(string[] args)
         {
             TBL tbl = new TBL();
+            PO po = new PO();
             Dictionary.LoadDictionary(File.ReadAllLines("dic.txt"));
             try
             {
@@ -21,6 +22,7 @@ namespace Merchanter
                         tbl.Initialize(args[0]);
                         break;
                     case ".po":
+                        po.POImport(args[0]);
                         break;
                 }
             }
