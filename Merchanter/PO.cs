@@ -38,7 +38,7 @@ namespace Merchanter
         public void POImport(string poFile)
         {
             var poInstance = new BinaryFormat(new DataStream(poFile, FileOpenMode.Read)).ConvertTo<Po>();
-            using (BinaryWriter bw = new BinaryWriter(new FileStream(Path.GetFileNameWithoutExtension(poFile), FileMode.OpenOrCreate), SJIS, true))
+            using (BinaryWriter bw = new BinaryWriter(new FileStream(Path.GetFileNameWithoutExtension(poFile), FileMode.Create), SJIS, true))
             {
                 bw.Write((ushort)poInstance.Entries.Count);
                 ushort textL = 0;
@@ -52,6 +52,7 @@ namespace Merchanter
                 {
                     char[] textW = dic.Transform(p.Text, "dicHW2FW").ToCharArray();
                     bw.Write(textW);
+                    bw.Write((byte)0x0);
                 }
             }
         }

@@ -49,7 +49,7 @@ namespace Merchanter
             int c = 0;
             foreach (var t in textList)
             {
-                po.POExport(t, c);
+                po.POExport(t.Remove(t.Length - 1), c);
                 c++;
             }
             po.POWrite(f);
