@@ -44,9 +44,8 @@ namespace Merchanter
                 ushort textL = 0;
                 foreach (var p in poInstance.Entries)
                 {
-                    bw.Write((ushort)((p.Text.Length * 2 - 1) + textL));
-                    textL += (ushort)(p.Text.Length * 2 - 1);
-
+                    bw.Write((ushort)((p.Text.Length * 2 + 1) + textL));
+                    textL += (ushort)(p.Text.Length * 2 + 1);
                 }
                 foreach (var p in poInstance.Entries)
                 {
