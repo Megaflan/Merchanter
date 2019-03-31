@@ -26,7 +26,7 @@ namespace Merchanter
 
         public void POExport(string toPO, int i)
         {
-            poYarhl.Add(new PoEntry(dic.Transform(toPO, "dicFW2HW")) { Context = i.ToString() });
+            poYarhl.Add(new PoEntry(dic.Transform(toPO, "dicFW2HW" )) { Context = i.ToString() });
         }
 
         public void POWrite(string file)
@@ -38,7 +38,7 @@ namespace Merchanter
         public void POImport(string poFile)
         {
             var poInstance = new BinaryFormat(new DataStream(poFile, FileOpenMode.Read)).ConvertTo<Po>();
-            using (BinaryWriter bw = new BinaryWriter(new FileStream(Path.GetFileNameWithoutExtension(poFile), FileMode.Create), SJIS, true))
+            using (BinaryWriter bw = new BinaryWriter(new FileStream(Path.GetFileNameWithoutExtension(poFile), FileMode.OpenOrCreate), SJIS, true))
             {
                 bw.Write((ushort)poInstance.Entries.Count);
                 ushort textL = 0;
@@ -48,11 +48,10 @@ namespace Merchanter
                     textL += (ushort)(p.Text.Length * 2 - 1);
 
                 }
-                for (int i = 0; i < poInstance.Entries.Count; i++)
+                foreach (var p in poInstance.Entries)
                 {
-                    char[] textW = dic.Transform(poInstance.Entries[i].Text, "dicHW2FW").ToCharArray();
+                    char[] textW = dic.Transform(p.Text, "dicHW2FW").ToCharArray();
                     bw.Write(textW);
-                    bw.Write((byte)0x0);
                 }
             }
         }
