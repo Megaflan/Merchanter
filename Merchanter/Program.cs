@@ -26,9 +26,10 @@ namespace Merchanter
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Console.WriteLine("No compatible file found");
+                Console.WriteLine(ex);
                 Console.ReadLine();
             }
             
