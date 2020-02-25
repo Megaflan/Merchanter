@@ -26,7 +26,8 @@ namespace Merchanter
 
         public void POExport(string toPO, int i)
         {
-            poYarhl.Add(new PoEntry(dic.Transform(toPO, "dicFW2HW" )) { Context = i.ToString() });
+            if (toPO != "")
+                poYarhl.Add(new PoEntry(dic.Transform(toPO, "dicFW2HW")) { Context = i.ToString() });
         }
 
         public void POWrite(string file)
